@@ -8,9 +8,8 @@ import { faVideo, faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 
 var cameraTimer;
 
-class App extends Component {
-
-
+export default class Home extends Component {
+    
   constructor(props) {
     super(props);
 
@@ -38,7 +37,6 @@ class App extends Component {
     if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia(constraints).then(stream => {
         const video = document.querySelector('video');
-        const vendorURL = window.URL || window.webkitURL;
         video.srcObject = stream;
         video.play();
       }).catch(err => {
@@ -74,20 +72,18 @@ class App extends Component {
 
   clearPhoto() {
     const canvas = document.querySelector('canvas');
-    const photo = document.getElementById('photo');
     const context = canvas.getContext('2d');
     const { width, height } = this.state.constraints.video;
     context.fillStyle = '#FFF';
     context.fillRect(0, 0, width, height);
 
-    const data = canvas.toDataURL('image/jpeg');
     // photo.setAttribute('src', data);
 
 
   }
 
   handleMouseDown(event) {
-    if(this.state.counter == true){
+    if(this.state.counter === true){
       this.setState({iconFont:faVideo})
       cameraTimer = setInterval(() => {
         this.takePicture();
@@ -131,16 +127,14 @@ class App extends Component {
         <div className="capture" >
           <Camera handleMouseDown={()=>{
             this.handleMouseDown(); 
-            this.state.counter==false? this.setState({counter:true}): this.setState({counter: false})
+            this.state.counter===false? this.setState({counter:true}): this.setState({counter: false})
             }} handleIcon={this.state.iconFont}/>
           <canvas id="canvas"  ></canvas>
         </div>
       </StyledApp>
     );
   }
-
 }
-export default App;
 
 // -------------------------------------- Styling
 
@@ -181,7 +175,5 @@ const Camera = (props) => (
     </Button>
   </div>
 )
-
-
 
 
