@@ -13,7 +13,6 @@ export default function Login() {
     //     password: yup.string().min(8).required()
     // });
 
-   
 
     return (
         <StyledLogin>
